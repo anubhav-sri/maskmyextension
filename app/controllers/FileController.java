@@ -10,17 +10,19 @@ import java.net.URL;
 public class FileController extends Controller {
 
     public Result downloadWithExtension(String filePath, String extension) {
-        File newFile;
+        File newFile = null;
         System.out.println(filePath);
         try {
             URL fileUrl = new URL(filePath);
 
             String fileName = fileUrl.getFile();
 
-            String trimmedFilenName = fileName.substring(0, fileName.lastIndexOf('.'));
-            newFile = new File(String.format("repo/%s.%s", trimmedFilenName, extension));
+            String trimmedFileName = fileName.substring(0, fileName.lastIndexOf('.'));
+            newFile = File.createTempFile(trimmedFileName, "." + extension);
+            newFile.deleteOnExit();
             FileUtils.copyURLToFile(fileUrl, newFile);
         } catch (Exception e) {
+            newFile.delete();
             System.out.println(e);
             return ok("Internal Error!!!");
         }
