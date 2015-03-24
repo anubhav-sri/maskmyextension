@@ -21,7 +21,7 @@ public class FileController extends Controller {
             newFile = new File(String.format("repo/%s.%s", trimmedFilenName, extension));
             FileUtils.copyURLToFile(fileUrl, newFile);
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e);
             return ok("Internal Error!!!");
         }
 
