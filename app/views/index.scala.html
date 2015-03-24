@@ -1,0 +1,10 @@
+@(message: String)
+
+    @main("Enter URl and Complete the story") {
+        <form action="@routes.FileController.downloadWithExtension("@fileUrl", "@extension")">
+            <input type="url" name="fileUrl"/>
+            <input type="text" name="extension"/>
+            <input type="submit" name="Download"/>
+        </form>
+
+    }
