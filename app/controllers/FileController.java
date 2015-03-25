@@ -1,15 +1,23 @@
 package controllers;
 
 import org.apache.commons.io.FileUtils;
+import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.File;
 import java.net.URL;
 
+import static play.data.Form.form;
+
 public class FileController extends Controller {
 
-    public Result downloadWithExtension(String filePath, String extension) {
+    public Result downloadWithExtension() {
+        DynamicForm dynamicForm = form().bindFromRequest();
+
+        String filePath = dynamicForm.get("fileUrl");
+
+        String extension = dynamicForm.get("extension");
         File newFile = null;
         System.out.println(filePath);
         try {
