@@ -29,12 +29,14 @@ public class FileController extends Controller {
             newFile = File.createTempFile(trimmedFileName, "." + extension);
             newFile.deleteOnExit();
             FileUtils.copyURLToFile(fileUrl, newFile);
+
         } catch (Exception e) {
             newFile.delete();
             System.out.println(e);
             return ok("Internal Error!!!");
         }
 
+        response().setContentType("application/x-apple-diskimage");
         return ok(newFile);
 
     }
